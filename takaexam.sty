@@ -1,0 +1,131 @@
+%%%% Basic libraries
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage{xparse}
+%%%%
+
+%%%% Page margin
+\usepackage[margin=20mm]{geometry}
+%%%%
+
+%%%% Header and Footer
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\RenewDocumentCommand\headrulewidth{}{0pt}
+\pagestyle{fancy}
+
+\NewDocumentCommand\SetHeader{mmm}{%
+  \lhead{#1}
+  \chead{#2}
+  \rhead{#3}
+}
+
+\NewDocumentCommand\SetFooter{mmm}{%
+  \lfoot{#1}
+  \cfoot{#2}
+  \rfoot{#3}
+}
+%%%%
+
+%%%% Font
+\usepackage[haranoaji]{luatexja-preset}
+\usepackage{unicode-math}
+\setmainfont{STIX Two Text}
+\setmathfont{STIX Two Math}
+%%%%
+
+%%%% Math and Science
+\usepackage{siunitx}
+%%%%
+
+%%%% Utility
+\usepackage[at]{easylist}
+%%%%
+
+%%%% Question Declaration
+\newcounter{Q}
+\newcounter{QQ}[Q]
+
+\NewDocumentCommand\Q{o}{%
+  \par
+  \bigskip
+  \refstepcounter{Q}%
+  \IfValueT{#1}{\label{#1}}%
+  \noindent
+  \textbf{問\theQ}.~\ignorespaces
+}
+
+\NewDocumentCommand\QQ{o}{%
+  \par
+  \medskip
+  \refstepcounter{QQ}%
+  \IfValueT{#1}{\label{#1}}%
+  \noindent
+  \textbf{(\theQ)}~\ignorespaces
+}
+%%%%
+
+%%%% Box for answer area (or name area)
+\makeatletter
+\newlength{\@AnswerBoxTextLen}
+
+\NewDocumentCommand\AnswerBox{mmm}{%
+  \settowidth{\@AnswerBoxTextLen}{#3}%
+  \framebox[#1][l]{\rule[-3mm]{0pt}{#2-2\fboxsep}#3}
+}
+\makeatother
+%%%%
+
+%%%% Enumerate with grid-style
+\makeatletter
+
+\newcounter{@EnumerateInGridStrLen}
+\NewDocumentCommand\@EnumerateInGridStrLen{m}{%
+  \edef\@EnumerateInGridStrLenText{#1}%
+  \setcounter{@EnumerateInGridStrLen}{0}%
+  \whiledo{\NOT \equal{\@EnumerateInGridStrLenText}{}}{%
+    \stepcounter{@EnumerateInGridStrLen}%
+    \edef\@EnumerateInGridStrLenText{\expandafter\@gobble\@EnumerateInGridStrLenText}%
+  }%
+}
+
+\edef\@ItemInGridStyle{Alph}
+
+\NewDocumentEnvironment{EnumerateInGrid}{mm}{%
+  \@EnumerateInGridStrLen{#1}%
+  \edef\@ItemInGridStyle{#2}%
+  \edef\@EnumerateInGridTabular{{tabular}{#1}}%
+  \expandafter\begin\@EnumerateInGridTabular
+  \setcounter{@ItemInGrid}{0}\ignorespaces
+}{%
+  \end{tabular}%
+  \edef\@ItemInGridStyle{}%
+}
+
+\newcounter{@EnumerateInGridRem}
+\newcounter{@ItemInGrid}
+\NewDocumentCommand\ItemInGrid{}{%
+  \setcounter{@EnumerateInGridRem}{%
+    \value{@ItemInGrid}
+    /
+    \value{@EnumerateInGridStrLen}
+    *
+    \value{@EnumerateInGridStrLen}
+    -
+    \value{@ItemInGrid}%
+  }%
+  \ifthenelse{\value{@EnumerateInGridRem}=0}%
+    {\ifthenelse{\value{@ItemInGrid}=0}{}{\\}}%
+    {&}%
+  \stepcounter{@ItemInGrid}%
+  \ifthenelse{\equal{\@ItemInGridStyle}{Alph}}{\Alph{@ItemInGrid}.}{%
+  \ifthenelse{\equal{\@ItemInGridStyle}{alph}}{\alph{@ItemInGrid}.}{%
+  \ifthenelse{\equal{\@ItemInGridStyle}{Roman}}{\Roman{@ItemInGrid}.}{%
+  \ifthenelse{\equal{\@ItemInGridStyle}{roman}}{\roman{@ItemInGrid}.}{%
+  \ifthenelse{\equal{\@ItemInGridStyle}{arabic}}{\arabic{@ItemInGrid}.}{%
+  \ifthenelse{\equal{\@ItemInGridStyle}{Arabic}}{(\arabic{@ItemInGrid})}{%
+  }}}}}}~\ignorespaces
+}
+
+\makeatother
+%%%%

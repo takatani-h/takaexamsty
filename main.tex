@@ -1,0 +1,68 @@
+\documentclass[a4paper]{jlreq}
+\usepackage{takaexam}
+\SetHeader{LHEAD}{\textbf{CHEAD}}{RHEAD}
+\SetFooter{LFOOT}{\thepage{ }/{ }\pageref{LastPage}}{RFOOT}
+\begin{document}
+いい加減に，デフォルトのスタイルファイルを作ろうと思います．
+どうです，最低限で良さげな感じでしょう？
+
+\Q
+以下の小問に答えなさい．
+
+\QQ[OnePlusOne]
+$1 + 1 =$？
+
+(\ref{OnePlusOne})の答えは文脈によって変化する．
+
+\AnswerBox{40mm}{10mm}{テキ} \rule[-3mm-\fboxsep]{40mm}{10mm}
+
+\rule{40mm}{10mm}
+
+\AnswerBox{40mm}{10mm}{テキ}
+\AnswerBox{40mm}{10mm}{テキ}
+\AnswerBox{40mm}{10mm}{テキ}
+\AnswerBox{40mm}{10mm}{$
+  \frac{\partial f}{\partial x} \int_0^5 x^3 \symrm{d}x
+$}
+
+以下，EnumerateInGrid.
+
+\begin{EnumerateInGrid}{llll}{Roman}
+  \ItemInGrid This
+  \ItemInGrid This
+  \ItemInGrid This
+  \ItemInGrid This
+  \ItemInGrid This
+  \ItemInGrid This
+\end{EnumerateInGrid}
+
+\begin{EnumerateInGrid}{llll}{Arabic}
+  \ItemInGrid This
+  \ItemInGrid This
+  \ItemInGrid This
+  \ItemInGrid This
+  \ItemInGrid This
+  \ItemInGrid This
+\end{EnumerateInGrid}
+
+\begin{EnumerateInGrid}{llll}{Alph}
+  \ItemInGrid This
+  \ItemInGrid This
+  \ItemInGrid This
+  \ItemInGrid This
+  \ItemInGrid This
+  \ItemInGrid This
+\end{EnumerateInGrid}
+
+\begin{EnumerateInGrid}{l}{arabic}
+  \ItemInGrid This
+  \ItemInGrid This
+  \ItemInGrid This
+  \ItemInGrid This
+  \ItemInGrid This
+  \ItemInGrid This
+\end{EnumerateInGrid}
+
+以上，EnumerateInGrid.
+
+\end{document}
