@@ -1,0 +1,4 @@
+rule lualatex
+    command = latexmk -lualatex -halt-on-error -interaction=nonstopmode $in
+
+build main.pdf: lualatex main.tex | takaexam.sty
