@@ -1,11 +1,11 @@
 collection-basic
 collection-fontsrecommended
-collection-langcjk
 collection-langjapanese
 collection-latex
 collection-latexrecommended
 collection-luatex
 collection-mathscience
-stix2-otf
-lastpage
 everyhook
+lastpage
+latexmk
+stix2-otf
